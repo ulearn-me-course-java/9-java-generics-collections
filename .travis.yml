@@ -1,0 +1,18 @@
+language: java
+script:
+  - |
+    task=$(git diff --name-only $TRAVIS_BRANCH...HEAD | awk -F/ '{print $(NF-1)}' | sort -u | grep task)
+    count=`echo $task | wc -w`
+    if [ "$count" == "0" ];
+    then
+      echo "Nothing to check"
+      exit 1
+    fi
+    if [ $count != 1 ];
+    then
+      echo "Only single task is allowed"
+      exit 1
+    fi
+    echo "Checking $task"
+    cmd="./gradlew :$task:clean :$task:check"
+    $cmd
