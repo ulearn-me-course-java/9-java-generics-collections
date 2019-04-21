@@ -11,7 +11,6 @@ public class SavedList<E> extends AbstractList<E> {
     private final LinkedList<E> listStorage = new LinkedList<>();
 
     public SavedList(File file) {
-
         int indexOgFile = fileStorage.indexOf(file);
         if (indexOgFile != -1){
             currentFile = fileStorage.get(indexOgFile);
@@ -22,7 +21,6 @@ public class SavedList<E> extends AbstractList<E> {
                 e.printStackTrace();
             }
         }
-
         else {
             currentFile = file;
             fileStorage.add(currentFile);
@@ -37,11 +35,7 @@ public class SavedList<E> extends AbstractList<E> {
     @Override
     public E set(int index, E element) {
         listStorage.set(index, element);
-        try {
-            writeInfo(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeInfo(false);
         return element;
     }
 
@@ -53,28 +47,22 @@ public class SavedList<E> extends AbstractList<E> {
     @Override
     public void add(int index, E element) {
         listStorage.add(index, element);
-        try {
-            writeInfo(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+         writeInfo(false);
     }
 
     @Override
     public boolean add(E element) {
         listStorage.add(element);
-        try {
-            writeInfo(true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeInfo(true);
         return true;
     }
 
-    private void writeInfo(boolean isAppend) throws IOException {
+    private void writeInfo(boolean isAppend){
         try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(currentFile, isAppend))){
             if(!isAppend) rewriteFile(objectOutputStream);
             else objectOutputStream.writeObject(listStorage.getLast());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -92,26 +80,21 @@ public class SavedList<E> extends AbstractList<E> {
     @Override
     public E remove(int index) {
         E value = listStorage.remove(index);
-        try {
-            writeInfo(false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        writeInfo(false);
         return value;
     }
 
 
     private List<E> readFile() throws IOException, ClassNotFoundException {
-        List<E> list = new LinkedList<>();
+        List<E> resultList = new LinkedList<>();
         try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(currentFile))) {
-           Object o ;
            while (true){
                try{
-                   list.add((E) objectInputStream.readObject());
+                   resultList.add((E) objectInputStream.readObject());
                }catch (EOFException e){
-                   return list;
+                   return resultList;
                }
-
            }
         }
     }
