@@ -2,6 +2,7 @@ package com.example.task02;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.SocketHandler;
 
 public class Task02Main {
 
@@ -12,6 +13,7 @@ public class Task02Main {
         SavedList<String> list1 = new SavedList<>(file);
         list1.add("Z");
         System.out.println("list1: " + list1);
+        System.out.println("size: "  + list1.size());
 
         SavedList<String> list2 = new SavedList<>(file);
         System.out.println("list2: " + list2);
