@@ -2,12 +2,15 @@ package com.example.task01;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 
 public class Task01Main {
     public static void main(String[] args) throws IOException {
 
         // TODO С корректно реализованным классом Pair должен компилироваться и успешно работать следующий код:
 
+        //Optional<Integer> optionalInteger = new Optional<>(5);
+        //optionalInteger.ifPresent(i -> System.out.println(i));
         /*
         Pair<Integer, String> pair = Pair.of(1, "hello");
         Integer i = pair.getFirst(); // 1
