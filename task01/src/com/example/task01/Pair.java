@@ -2,7 +2,6 @@ package com.example.task01;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public final class Pair<T, K> {
 
@@ -15,7 +14,7 @@ public final class Pair<T, K> {
         this.second = secondValue;
     }
 
-    public static <T, K> Pair<T, K> of (T first, K second){
+    public static <T, K> Pair<T, K> of(T first, K second) {
         return new Pair<>(first, second);
     }
 
@@ -36,9 +35,9 @@ public final class Pair<T, K> {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Pair)) return false;
-        Pair<T, K> otherPair = (Pair<T, K>) o;
-        return first == otherPair.first &&
-                second ==  otherPair.second;
+        Pair otherObject = (Pair) o;
+        return first == otherObject.first &&
+                second == otherObject.second;
     }
 
     @Override
