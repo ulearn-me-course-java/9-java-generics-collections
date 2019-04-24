@@ -12,20 +12,21 @@ public class SavedList<E> extends AbstractList<E> {
 
     public SavedList(File file) {
         int indexOgFile = fileStorage.indexOf(file);
-        if (indexOgFile != -1){
+        if (indexOgFile != -1) {
             currentFile = fileStorage.get(indexOgFile);
             try {
-                if(file.exists()) ///remove from list this file
+                if (file.exists())
                     listStorage.addAll(readFile());
+                else fileStorage.remove(file);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             currentFile = file;
             fileStorage.add(currentFile);
         }
     }
+
 
     @Override
     public E get(int index) {
@@ -35,7 +36,7 @@ public class SavedList<E> extends AbstractList<E> {
     @Override
     public E set(int index, E element) {
         listStorage.set(index, element);
-        writeInfo(false);
+        writeInfo();
         return element;
     }
 
@@ -47,27 +48,19 @@ public class SavedList<E> extends AbstractList<E> {
     @Override
     public void add(int index, E element) {
         listStorage.add(index, element);
-         writeInfo(false);
+        writeInfo();
     }
 
-    @Override
-    public boolean add(E element) {
-        listStorage.add(element);
-        writeInfo(true);
-        return true;
-    }
-
-    private void writeInfo(boolean isAppend){
-        try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(currentFile, isAppend))){
-            if(!isAppend) rewriteFile(objectOutputStream);
-            else objectOutputStream.writeObject(listStorage.getLast());
+    private void writeInfo() {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(currentFile, false))) {
+            rewriteFile(objectOutputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    private void rewriteFile(ObjectOutputStream objectOutputStream){
+    private void rewriteFile(ObjectOutputStream objectOutputStream) {
         listStorage.forEach(i -> {
             try {
                 objectOutputStream.writeObject(i);
@@ -80,22 +73,20 @@ public class SavedList<E> extends AbstractList<E> {
     @Override
     public E remove(int index) {
         E value = listStorage.remove(index);
-
-        writeInfo(false);
+        writeInfo();
         return value;
     }
 
-
     private List<E> readFile() throws IOException, ClassNotFoundException {
         List<E> resultList = new LinkedList<>();
-        try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(currentFile))) {
-           while (true){
-               try{
-                   resultList.add((E) objectInputStream.readObject());
-               }catch (EOFException e){
-                   return resultList;
-               }
-           }
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(currentFile))) {
+            while (true) {
+                try {
+                    resultList.add((E) objectInputStream.readObject());
+                } catch (EOFException e) {
+                    return resultList;
+                }
+            }
         }
     }
 }
