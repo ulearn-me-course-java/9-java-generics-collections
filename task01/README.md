@@ -7,5 +7,6 @@
 
 - Реализуйте статический фабричный метод of(). Конструктор должен быть закрытым (private). 
 
-- Реализуйте метод ifPresent, аналогичный одноименному методу класса Optional и принимающий java.util.function.BiConsumer
+- Реализуйте метод ifPresent, аналогичный одноименному методу класса Optional и принимающий
+java.util.function.BiConsumer
 
