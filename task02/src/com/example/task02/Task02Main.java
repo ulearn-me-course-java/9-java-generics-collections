@@ -11,6 +11,8 @@ public class Task02Main {
 
         SavedList<String> list1 = new SavedList<>(file);
         list1.add("Z");
+        list1.remove(1);
+
         System.out.println("list1: " + list1);
 
         SavedList<String> list2 = new SavedList<>(file);
