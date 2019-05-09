@@ -1,11 +1,8 @@
 package com.example.task03;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.util.*;
 import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Set;
 
 public class Task03Main {
 
@@ -18,7 +15,51 @@ public class Task03Main {
 
     }
 
+    public static boolean filter(String s) {
+        if (s.length() <= 3)
+            return false;
+
+        for (char c: s.toCharArray()) {
+            if ((c < 'а') || (c > 'я')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        return null;
+        Set<TreeSet<String>> result = new TreeSet<TreeSet<String>>(Comparator.comparing(TreeSet::first));
+        List<String> words = new ArrayList<String>();
+        char[][] wordsChars;
+
+        new BufferedReader(new InputStreamReader(inputStream, charset))
+                .lines()
+                .map(String::toLowerCase)
+                .distinct()
+                .filter(Task03Main::filter)
+                .forEach(words::add);
+
+        wordsChars = new char[words.size()][];
+        for (int i = 0; i < wordsChars.length; i++) {
+            wordsChars[i] = words.get(i).toCharArray();
+            Arrays.sort(wordsChars[i]);
+        }
+
+        for (int i = 0; i < words.size(); i++) {
+            TreeSet<String> anagrams = new TreeSet<String>();
+
+            for (int j = i + 1; j < words.size(); j++) {
+                if (Arrays.equals(wordsChars[i], wordsChars[j])) {
+                    anagrams.add(words.get(j));
+                }
+            }
+
+            if (!anagrams.isEmpty()) {
+                anagrams.add(words.get(i));
+                result.add(anagrams);
+            }
+        }
+
+        return new ArrayList<Set<String>>(result);
     }
 }
