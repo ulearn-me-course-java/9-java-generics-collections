@@ -1,4 +1,5 @@
 language: java
+jdk: openjdk8
 script:
   - |
     task=$(git diff --name-only $TRAVIS_BRANCH...HEAD | awk -F/ '{print $(NF-1)}' | sort -u | grep task)
