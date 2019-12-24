@@ -23,6 +23,7 @@ public class Task01Main {
         boolean mustAlsoBeTrue = pair.hashCode() == pair2.hashCode(); // true!
         */
 
+
     }
 
 }
