@@ -1,10 +1,9 @@
 package com.example.task03;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task03Main {
 
@@ -18,28 +17,25 @@ public class Task03Main {
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        HashSet<String> set = parse(inputStream, Charset.defaultCharset());
-        return null;
-    }
+        HashMap<String, HashSet<String>> result = new HashMap<>();
+        new BufferedReader(new InputStreamReader(inputStream, charset))
+                .lines()
+                .map(String::toLowerCase)
+                .filter(it -> it.length() >= 3 && it.matches("[а-я]*"))
+                .distinct()
+                .forEach(it -> {
+                    char[] sorted = it.toCharArray();
+                    Arrays.sort(sorted);
+                    String key = Arrays.toString(sorted);
+                    if(result.containsKey(key)){
+                        result.get(key).add(it);
+                    } else {
+                        HashSet<String> list = new HashSet<>();
+                        list.add(it);
+                        result.put(key, list);
+                    }
+                });
 
-    private static HashSet<String> parse(InputStream inputStream, Charset charset){
-        Scanner sc = new Scanner(inputStream).useDelimiter("\n");
-        HashSet<String> set = new HashSet<>();
-        while (sc.hasNext()){
-            String next = sc.next();
-            if(next.length() < 3 || !isCyrillic(next)) continue;
-            next = next.toLowerCase();
-            set.add(next);
-        }
-        return set;
-    }
-
-    public static boolean isCyrillic(String s) {
-        for (char a : s.toCharArray()) {
-            if (Character.UnicodeBlock.of(a) != Character.UnicodeBlock.CYRILLIC) {
-                return false;
-            }
-        }
-        return true;
+        return result.values().stream().filter(it -> it.size() > 1).collect(Collectors.toList());
     }
 }
