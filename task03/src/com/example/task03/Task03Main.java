@@ -13,11 +13,10 @@ public class Task03Main {
         for (Set<String> anagram : anagrams) {
             System.out.println(anagram);
         }
-
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        HashMap<String, HashSet<String>> result = new HashMap<>();
+        HashMap<String, SortedSet<String>> dict = new HashMap<>();
         new BufferedReader(new InputStreamReader(inputStream, charset))
                 .lines()
                 .map(String::toLowerCase)
@@ -27,15 +26,19 @@ public class Task03Main {
                     char[] sorted = it.toCharArray();
                     Arrays.sort(sorted);
                     String key = Arrays.toString(sorted);
-                    if(result.containsKey(key)){
-                        result.get(key).add(it);
+                    if(dict.containsKey(key)){
+                        dict.get(key).add(it);
                     } else {
-                        HashSet<String> list = new HashSet<>();
+                        SortedSet<String> list = new TreeSet<>();
                         list.add(it);
-                        result.put(key, list);
+                        dict.put(key, list);
                     }
                 });
 
-        return result.values().stream().filter(it -> it.size() > 1).collect(Collectors.toList());
+        return dict.values()
+                .stream()
+                .filter(it -> it.size() > 1)
+                .sorted(Comparator.comparing(SortedSet::first))
+                .collect(Collectors.toList());
     }
 }
