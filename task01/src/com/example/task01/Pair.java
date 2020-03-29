@@ -37,7 +37,7 @@ public class Pair<T, U> {
         return first.hashCode() + second.hashCode() * 1023;
     }
 
-    public void ifPresent(BiConsumer<T, U> cons){
+    public void ifPresent(BiConsumer<? super T, ? super U> cons){
         if(first != null && second != null)
             cons.accept(first, second);
     }
