@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Task01Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
-        // TODO С корректно реализованным классом Pair должен компилироваться и успешно работать следующий код:
-
-        /*
         Pair<Integer, String> pair = Pair.of(1, "hello");
         Integer i = pair.getFirst(); // 1
         String s = pair.getSecond(); // "hello"
@@ -21,8 +18,6 @@ public class Task01Main {
         Pair<Integer, String> pair2 = Pair.of(1, "hello");
         boolean mustBeTrue = pair.equals(pair2); // true!
         boolean mustAlsoBeTrue = pair.hashCode() == pair2.hashCode(); // true!
-        */
-
     }
 
 }
