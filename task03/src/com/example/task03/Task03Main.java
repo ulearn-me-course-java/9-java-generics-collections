@@ -65,7 +65,7 @@ public class Task03Main {
     }
 
     private static boolean isRussian(String word) {
-        return word.matches("[а-я]+");
+        return word.matches("[А-я]+");
     }
 
     private static boolean isRightLength(String word) {
