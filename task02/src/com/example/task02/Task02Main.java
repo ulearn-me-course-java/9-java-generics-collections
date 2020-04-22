@@ -7,7 +7,7 @@ public class Task02Main {
 
     public static void main(String[] args) throws IOException {
 
-        File file = new File("./testlist.dat");
+        File file = new File("./list1.dat");
 
         SavedList<String> list1 = new SavedList<>(file);
         list1.add("Z");
