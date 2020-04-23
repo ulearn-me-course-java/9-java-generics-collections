@@ -15,7 +15,5 @@ public class Task02Main {
 
         SavedList<String> list2 = new SavedList<>(file);
         System.out.println("list2: " + list2);
-
     }
-
 }
