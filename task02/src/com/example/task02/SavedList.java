@@ -29,14 +29,11 @@ public class SavedList<E extends Serializable> extends AbstractList<E> {
 
     @Override
     public E get(int index) {
-        return null;
         return list.get(index);
     }
-    return list.get(index);
 
     @Override
     public E set(int index, E element) {
-        return null;
         E elem = list.set(index, element);
         update();
         return elem;
@@ -45,7 +42,6 @@ public class SavedList<E extends Serializable> extends AbstractList<E> {
 
     @Override
     public int size() {
-        return 0;
         return list.size();
     }
 
@@ -58,7 +54,6 @@ public class SavedList<E extends Serializable> extends AbstractList<E> {
 
     @Override
     public E remove(int index) {
-        return null;
         E elem = list.remove(index);
         update();
         return elem;
