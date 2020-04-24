@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class SavedList<E extends Serializable> extends AbstractList<E> {
+public class SavedList<E extends Serializable> extends AbstractList<E> implements Serializable{
     ArrayList<E> list;
     File file;
 
