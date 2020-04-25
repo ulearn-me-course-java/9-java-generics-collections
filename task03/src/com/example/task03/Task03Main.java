@@ -19,7 +19,7 @@ public class Task03Main {
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        List<String> words = new ArrayList<>();
+        TreeSet<String> words = new TreeSet<>();
 
         try {
             String word;
@@ -32,7 +32,7 @@ public class Task03Main {
             
         }
 
-        HashMap<String, TreeSet<String>> anagramsMap = new HashMap<>();
+        TreeMap<String, TreeSet<String>> anagramsMap = new TreeMap<>();
         for (String word : words) {
             String key = getHashSetKey(anagramsMap.keySet(), word);
             if (key == null) {

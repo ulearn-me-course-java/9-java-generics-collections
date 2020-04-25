@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.task03.Tests" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-04-25T08:48:50" hostname="LAPTOP-TKPCN0IG" time="0.244">
+  <properties/>
+  <testcase name="testExample" classname="com.example.task03.Tests" time="0.22"/>
+  <testcase name="testEmpty" classname="com.example.task03.Tests" time="0.005"/>
+  <testcase name="test" classname="com.example.task03.Tests" time="0.003"/>
+  <testcase name="testErrors" classname="com.example.task03.Tests" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
