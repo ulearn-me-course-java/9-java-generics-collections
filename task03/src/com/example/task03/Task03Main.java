@@ -20,19 +20,19 @@ public class Task03Main {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, charset))){
             String line;
-            while((line = reader.readLine()) != null){
+            while((line = reader.readLine()) != null){ // добавлем пока не закончится поток
 
-            if (!line.matches("^[а-яА-Я]+$") || line.length()<3) continue;
+            if (!line.matches("^[а-яА-Я]+$") || line.length()<3) continue; // проверяем что только русские смволы и длина больше 3
 
                 Set<Character> chars = new HashSet<>();
-                for(Character c : line.toLowerCase().toCharArray()){
+                for(Character c : line.toLowerCase().toCharArray()){ // собираем сет их charcter
                     chars.add(c);
                 }
 
                 if(map.containsKey(chars))
                     map.get(chars).add(line.toLowerCase());
                 else
-                    map.put(chars, new TreeSet<String>(Arrays.asList(line.toLowerCase())));
+                    map.put(chars, new TreeSet<String>(Arrays.asList(line.toLowerCase()))); // в зависимости от того есть ли такое множество букв или нет добавляем или создаем новый список
 
             }
 
@@ -41,9 +41,9 @@ public class Task03Main {
             e.printStackTrace();
         }
 
-        List<Set<String>> result = new ArrayList<Set<String>>();
+        List<Set<String>> result = new ArrayList<Set<String>>(); // итоговый список
         for(Set<Character> s : map.keySet()){
-            if(map.get(s).size()< 2 ) continue;
+            if(map.get(s).size()< 2 ) continue; // Добавляем к результату список только если он минимум из 2 состоит
             result.add(map.get(s));
         }
         Collections.sort(result, new Comparator<Set<String>>() {
@@ -54,7 +54,7 @@ public class Task03Main {
                         return s.compareTo(s2);
                     }
                 }
-                throw new RuntimeException("Sets are empty");
+                throw new RuntimeException("Sets are empty"); // сортируем коллекцию результата 
             }
         });
 
