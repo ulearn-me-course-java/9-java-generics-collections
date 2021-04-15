@@ -1,11 +1,10 @@
 package com.example.task03;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.*;
 import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task03Main {
 
@@ -16,9 +15,35 @@ public class Task03Main {
             System.out.println(anagram);
         }
 
+
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        return null;
+        Set<String> words = new TreeSet<>();
+        String cur;
+        List<Set<String>> res = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, charset))){
+            res = br
+                    .lines()
+                    .filter(w -> w.length() > 3 && w.matches("^[а-яА-Я]+$"))
+                    .collect(Collectors.groupingBy((String x) -> {
+                        char[] letters = x.toLowerCase(Locale.ROOT).toCharArray();
+                        Arrays.sort(letters);
+                        return new String(letters);
+                    }, Collectors.mapping(x ->x.toLowerCase(Locale.ROOT), Collectors.toCollection(() ->new TreeSet<String>()))))
+                    .values()
+                    .stream()
+                    .filter(g -> g.size() > 1).map((TreeSet<String> x) -> {
+                        x.stream().sorted(Comparator.comparing((String w) -> w));
+                        return x;
+                    }).sorted(Comparator.comparing(s -> s.first()))
+                    .collect(Collectors.toList());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return res;
     }
+
 }
