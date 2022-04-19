@@ -106,7 +106,7 @@ public class Tests {
         Assert.assertEquals(83, list.size());
 
         // remove file
-        file.delete();
+        boolean a = file.delete();
 
         // reload
         list = new SavedList<>(file);
