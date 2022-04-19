@@ -33,10 +33,7 @@ public class Pair<T, X>
 
     public boolean equals(Pair<T, X> otherPair)
     {
-        if (tValue == otherPair.tValue && xValue == otherPair.xValue)
-            return true;
-        else
-            return false;
+        return tValue == otherPair.tValue && xValue == otherPair.xValue;
     }
 
     @Override
