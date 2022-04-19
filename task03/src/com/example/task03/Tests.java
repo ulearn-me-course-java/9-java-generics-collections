@@ -26,7 +26,8 @@ public class Tests {
                 "рост",
                 "чесотка",
                 "сорт",
-                "отсечка");
+                "отсечка",
+                "сорт");
 
         List<List<String>> result = Arrays.asList(
                 Arrays.asList("отсечка", "чесотка"),
