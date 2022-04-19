@@ -3,7 +3,6 @@ package com.example.task02;
 import java.io.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class SavedList<E extends Serializable> extends AbstractList<E>
 {
@@ -40,7 +39,7 @@ public class SavedList<E extends Serializable> extends AbstractList<E>
     public E set(int index, E element)
     {
         E elem = list.set(index, element);
-        writlist();
+        writeList();
         return elem;
     }
 
@@ -54,18 +53,18 @@ public class SavedList<E extends Serializable> extends AbstractList<E>
     public void add(int index, E element)
     {
         list.add(index, element);
-        writlist();
+        writeList();
     }
 
     @Override
     public E remove(int index)
     {
         E elem = list.remove(index);
-        writlist();
+        writeList();
         return elem;
     }
 
-    private void writlist()
+    private void writeList()
     {
         try (ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(file)))
         {
