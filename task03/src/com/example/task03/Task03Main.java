@@ -17,28 +17,7 @@ public class Task03Main
         {
             System.out.println(anagram);
         }
-        System.out.println((int) 'Т');
-        System.out.println((int) 'т');
-        System.out.println((int) '-');
-        /*
-        List<Set<String>> listSet = new ArrayList<>();
-        Set<String> words = new TreeSet<>();
-        words.add("ya");
-        words.add("world");
-        words.add("hello");
-        listSet.add(words);
-        words = new TreeSet<>();
-        words.add("aaa");
-        words.add("cccc");
-        words.add("bbb");
-        listSet.add(words);
-        String[] list = words.toArray(new String[0]);
-        Arrays.sort(list);
-        for (Set<String> word : listSet)
-        {
-            System.out.println(word);
-        }
-        */
+
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset)
@@ -46,20 +25,18 @@ public class Task03Main
         ArrayList<String> words = readWords(inputStream, charset);
         List<Set<String>> result = new ArrayList<>(); // то, что будет возвращаться
 
-        Set<String> setForResult = new TreeSet<String>(); // этот набор добавляется в result,
+        Set<String> setForResult = new TreeSet<>(); // этот набор добавляется в result,
         // обнуляется после добавления
-
         for (int i = 0; i < words.size(); i++)
-        {
+        { // берем слово из списка, с которым мы будем сравнивать все наши слова
             Set<Character> selectedWord = returnSetWord(words.get(i).toLowerCase().toCharArray());
             if (checkRussianLang(words.get(i)) && selectedWord.size() >= 3)
             {
                 setForResult.add(words.get(i).toLowerCase());
                 removeAll(words, words.get(i));
-
+                // сравнение selectedWord со всеми остальными
                 for (int j = 0; j < words.size(); j++)
                 {
-                    String element = words.get(j);
                     Set<Character> comparableWord = returnSetWord(words.get(j).toLowerCase().toCharArray());
                     if (comparableWord.equals(selectedWord))
                     {
@@ -88,8 +65,7 @@ public class Task03Main
         char[] charWord = word.toCharArray();
         for (char letter : charWord)
         {
-            char upperLetter = Character.toUpperCase(letter);
-            if (upperLetter < 'А' || upperLetter > 'Я')
+            if (Character.toUpperCase(letter) < 'А' || Character.toUpperCase(letter) > 'Я')
                 return false;
         }
         return true;
@@ -97,14 +73,9 @@ public class Task03Main
 
     private static void removeAll(ArrayList<String> list, String value)
     {
-        ArrayList<String> results = new ArrayList<>();
-        for (String element : list)
+        for (int i = 0; i < list.size(); i++)
         {
-            if (value.equals(element)) results.add(element);
-        }
-        for (String result : results)
-        {
-            list.remove(result);
+            if (value.equals(list.get(i))) list.remove(value);
         }
     }
 
