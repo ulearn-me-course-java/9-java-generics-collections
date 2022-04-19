@@ -11,8 +11,8 @@ public class TestsImpl implements ITests {
     @Test
     public void testNonEmpty() {
         Pair<Integer, String> pair = Pair.of(1, "hello");
-        Integer i = pair.getFirst();
-        String s = pair.getSecond();
+        Integer i = pair.getkValue();
+        String s = pair.gettValue();
 
         Assertions.assertThat(i).isEqualTo(1);
         Assertions.assertThat(s).isEqualTo("hello");
@@ -47,8 +47,8 @@ public class TestsImpl implements ITests {
     @Test
     public void testEmpty() {
         Pair<Integer, String> pair = Pair.of(null, null);
-        Integer i = pair.getFirst();
-        String s = pair.getSecond();
+        Integer i = pair.getkValue();
+        String s = pair.gettValue();
 
         Assertions.assertThat(i).isNull();
         Assertions.assertThat(s).isNull();
