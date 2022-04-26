@@ -16,6 +16,14 @@ public class Task02Main {
         SavedList<String> list2 = new SavedList<>(file);
         System.out.println("list2: " + list2);
 
+        //
+        list2.add("B");
+        list2.set(0, "A");
+        System.out.println("list2: " + list2);
+        list2.remove(1);
+        SavedList<String> list3 = new SavedList<>(file);
+        System.out.println("list3: " + list3);
+
     }
 
 }
