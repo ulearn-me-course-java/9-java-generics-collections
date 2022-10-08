@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.task02.Tests" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-10-06T18:39:44" hostname="MacBook-Pro-Sena.local" time="0.226">
+  <properties/>
+  <testcase name="test1" classname="com.example.task02.Tests" time="0.113"/>
+  <testcase name="test2" classname="com.example.task02.Tests" time="0.047"/>
+  <testcase name="test3" classname="com.example.task02.Tests" time="0.063"/>
+  <testcase name="test4" classname="com.example.task02.Tests" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
