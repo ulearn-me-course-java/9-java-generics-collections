@@ -1,0 +1,35 @@
+variables:
+  GRADLE_BUILD_IMAGE: "gradle:4.8.1-jdk8"
+
+stages:
+  - test
+
+.verify: &verify
+  stage: test
+  image: $GRADLE_BUILD_IMAGE
+  interruptible: true
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    - gradle $TASK:clean $TASK:check
+  only:
+    - merge_requests
+  artifacts:
+    when: on_failure
+    reports:
+      junit: $TASK/build/test-results/test/**/TEST-*.xml
+
+Задача 1:
+  <<: *verify
+  variables:
+    TASK: task01
+
+Задача 2:
+  <<: *verify
+  variables:
+    TASK: task02
+
+Задача 3:
+  <<: *verify
+  variables:
+    TASK: task03
