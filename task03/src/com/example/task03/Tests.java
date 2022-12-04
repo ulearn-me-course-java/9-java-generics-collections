@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Collections;
