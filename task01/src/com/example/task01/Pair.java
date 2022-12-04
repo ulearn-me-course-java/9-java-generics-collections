@@ -3,8 +3,6 @@ package com.example.task01;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 public class Pair<T, G> {
     private final T first;
     private final G second;
