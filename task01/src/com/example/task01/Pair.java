@@ -3,11 +3,11 @@ package com.example.task01;
 import java.util.*;
 import java.util.function.BiConsumer;
 
-public class Pair<T, V> {
-    public T first;
+public class Pair<K, V> {
+    public K first;
     public V second;
 
-    private Pair(T firstValue, V secondValue) {
+    private Pair(K firstValue, V secondValue) {
         first = firstValue;
         second = secondValue;
     }
@@ -16,7 +16,7 @@ public class Pair<T, V> {
         return new Pair<>(firstValue, secondValue);
     }
 
-    public T getFirst() {
+    public K getFirst() {
         return first;
     }
 
@@ -27,7 +27,7 @@ public class Pair<T, V> {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || this.getClass() != obj.getClass()) return false;
-        Pair<T, V> pair = (Pair<T, V>) obj;
+        Pair<K, V> pair = (Pair<K, V>) obj;
         return this.first.equals(pair.first) && this.second.equals(pair.second);
     }
 
