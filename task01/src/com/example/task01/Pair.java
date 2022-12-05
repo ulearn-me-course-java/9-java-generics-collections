@@ -30,6 +30,8 @@ public class Pair <dT, sT> {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
+        if (obj == null || this.getClass() != obj.getClass())
+            return false;
         Pair <dT,sT> pair = (Pair<dT,sT>) obj;
         return (this.dValue == pair.dValue && this.sValue == pair.sValue);
     }
@@ -38,7 +40,7 @@ public class Pair <dT, sT> {
         return  new Pair<>(dValue, sValue);
     }
 
-    public void ifPresent(BiConsumer biConsumer) {
+    public void ifPresent(BiConsumer <? super dT, ? super sT> biConsumer) {
         if(dValue != null && sValue != null){
             biConsumer.accept(dValue, sValue);
         }
