@@ -33,7 +33,7 @@ public class Pair <T1, T2> {
     public int hashCode(){
         return Objects.hash(this.first,this.second);
     }
-    public void ifPresent(BiConsumer consumer) {
+    public void ifPresent(BiConsumer<? super T1, ? super T2> consumer) {
         if (this.first != null && this.second != null) {
             consumer.accept((T1) this.first, (T2) this.second);
         }
