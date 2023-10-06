@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.nio.file.Files.newBufferedReader;
 
@@ -19,68 +20,50 @@ public class Task03Main {
         for (Set<String> anagram : anagrams) {
             System.out.println(anagram);
         }
+
+
+        Tests tests = new Tests();
+        tests.test();
+        tests.testExample();
+        tests.testEmpty();
+        tests.testErrors();
     }
 
-    public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        Scanner scanner = new Scanner(inputStream, charset.name());
-        ArrayList<Set<String>> resultList = new ArrayList<Set<String>>();
-        while(scanner.hasNext()){
-            String word = scanner.next().toLowerCase(Locale.ROOT);
-            if (word.length()>=3){
-                boolean flag = true;
-                for (Set<String> stringSet:
-                     resultList) {
-                    Iterator<String> iterator = stringSet.iterator();
-                    String oldWord = iterator.next();
-                    if (IsAnagramm( oldWord, word)){
-                        stringSet.add(word);
-                        flag = false;
-                        break;
-                    }
-                }
-                if (flag){
-                    Set<String> newStringSet = new LinkedHashSet<>();
-                    newStringSet.add(word);
-                    resultList.add(newStringSet);
-                }
+    public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset){
+
+        TreeMap<String,TreeSet<String>> anagramsMap = new TreeMap<>();
+
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, charset))) {
+            Stream<String> stringStream = br.lines();
+            List<String> wordslist= stringStream.map(s -> s.toLowerCase()).sorted()
+                    .filter(x -> x.length()>=3)
+                    .filter(x -> x.matches("[а-ёя]+"))
+                    .collect(Collectors.toList());
+
+            for (String word : wordslist) {
+                char[] wordChars = word.toCharArray();
+                Arrays.sort(wordChars);
+
+                String key = new String(wordChars);
+                TreeSet<String> value = new TreeSet<>();
+
+                anagramsMap.putIfAbsent(key,value);
+                anagramsMap.get(key).add(word);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        List<Set<String>> resultList = new ArrayList<>();
+
+        for (TreeSet<String> values : anagramsMap.values()) {
+            if (values.size() >= 2){
+                Set<String> setString = new TreeSet<>();
+                setString.addAll(values);
+
+                resultList.add(setString);
             }
         }
-        for (int i=0;i<resultList.size();i++) {
-            if (resultList[i].size()==1){
-                resultList.remove(stringSet);
-            }else {
-                stringSet = stringSet.stream().sorted().collect(Collectors.toSet());
-            }
-        }
-        resultList.stream().sorted();
         return resultList;
-    }
-
-    private static boolean IsAnagramm(String word, String anotherWord) {
-        if (anotherWord.length() == word.length()){
-            for (Character letter:
-                 anotherWord.toCharArray()) {
-                int letterCountInAnotherWord = 0;
-                int letterCountInWord = 0;
-                for (Character letterInAnotherWord:
-                        anotherWord.toCharArray()) {
-                    if (letterInAnotherWord==letter){
-                        letterCountInAnotherWord++;
-                    }
-                }
-                for (Character letterInWord:
-                        word.toCharArray()) {
-                    if (letterInWord==letter){
-                        letterCountInAnotherWord++;
-                    }
-                }
-                if (letterCountInWord!=letterCountInAnotherWord){
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        return false;
     }
 }
