@@ -1,11 +1,10 @@
 package com.example.task03;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Set;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task03Main {
 
@@ -15,10 +14,24 @@ public class Task03Main {
         for (Set<String> anagram : anagrams) {
             System.out.println(anagram);
         }
-
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        return null;
+        Map<String, Set<String>> anagrams = new TreeMap<>();
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charset))) {
+            bufferedReader.lines() // получить все строки из входящего потока
+                    .map(String::toLowerCase) //перегнать их в нижний регистр
+                    .filter(word -> word.length() >= 3 && word.matches("[а-яё]*")) // проверка на длинну и русские буквы
+                    .forEach(word -> {
+                        char[] chars = word.toCharArray();
+                        Arrays.sort(chars);
+                        String sortedWord = new String(chars); // получить word с буквами в алфавитном порядке
+                        anagrams.computeIfAbsent(sortedWord, s -> new TreeSet<>()).add(word);
+                    });
+        } catch (IOException ignored) {}
+        return anagrams.values()
+                .stream() //преобразуем в поток для следующих действий
+                .filter(set -> set.size() >= 2) // берём только наборы из 2 слов или больше
+                .collect(Collectors.toList()); // преобразуем поток в список
     }
 }
