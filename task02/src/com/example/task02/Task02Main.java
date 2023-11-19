@@ -17,5 +17,4 @@ public class Task02Main {
         System.out.println("list2: " + list2);
 
     }
-
 }
