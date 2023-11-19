@@ -21,7 +21,7 @@ public class Task03Main {
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
         Map<String, SortedSet<String>> anagrams = new TreeMap<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, charset))){
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, charset))) {
             reader.lines()
                     .map(String::toLowerCase)
                     .filter(x -> x.length() >= 3 && x.matches("[а-яё]*"))

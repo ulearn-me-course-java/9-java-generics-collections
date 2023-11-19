@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 
 public class Pair<T1, T2> {
-    private T1 o1;
-    private T2 o2;
+    private final T1 o1;
+    private final T2 o2;
 
     private Pair(T1 o1, T2 o2) {
         this.o1 = o1;
@@ -18,8 +18,8 @@ public class Pair<T1, T2> {
         return new Pair<>(o1, o2);
     }
 
-    public void ifPresent(BiConsumer biConsumer){
-        if(o1 == null || o2 == null) return;
+    public void ifPresent(BiConsumer biConsumer) {
+        if (o1 == null || o2 == null) return;
         biConsumer.accept(o1, o2);
     }
 
@@ -32,7 +32,7 @@ public class Pair<T1, T2> {
     }
 
     public <T3, T4> boolean equals(Pair<T3, T4> pair) {
-        if(this == pair) return true;
+        if (this == pair) return true;
         return o1.equals(pair.getFirst()) && o2.equals(pair.getSecond());
     }
 
