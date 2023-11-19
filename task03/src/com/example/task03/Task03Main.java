@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.Map.Entry.comparingByValue;
 import static jdk.nashorn.internal.objects.NativeArray.forEach;
 
 public class Task03Main {
@@ -15,15 +16,15 @@ public class Task03Main {
         for (Set<String> anagram : anagrams) {
             System.out.println(anagram);
         }
-
+        System.out.println(anagrams.size());
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        Map<String, Set<String>> anagrams = new HashMap<>();
+        Map<String, SortedSet<String>> anagrams = new TreeMap<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, charset))){
             reader.lines()
                     .map(String::toLowerCase)
-                    .filter(x -> x.length() >= 3 && x.matches("[а-я]*"))
+                    .filter(x -> x.length() >= 3 && x.matches("[а-яё]*"))
                     .forEach(x -> {
                         char[] chars = x.toCharArray();
                         Arrays.sort(chars);
