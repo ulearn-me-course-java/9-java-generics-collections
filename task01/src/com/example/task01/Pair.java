@@ -25,13 +25,8 @@ public class Pair<T, U> {
         return secondValue;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (getClass() != object.getClass()) {
-            return false;
-        }
-        Pair<?, ?> pair = (Pair<?, ?>) object;
-        return pair.firstValue.equals(firstValue) && pair.secondValue.equals(secondValue);
+    public boolean equals(Pair<T, U> pair) {
+        return firstValue == pair.getFirst() && secondValue == pair.getSecond();
     }
 
     @Override
