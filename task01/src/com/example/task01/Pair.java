@@ -23,12 +23,11 @@ public class Pair<K,V> {
         return new Pair<K,V>(firstType, secondType);
     }
 
-    public void ifPresent(BiConsumer biConsumer){
+    public void ifPresent(BiConsumer<? super K, ? super V> biConsumer){
         if (firstType!=null&& secondType!=null){
-            biConsumer.accept((K)firstType, (V)secondType);
+            biConsumer.accept(firstType, secondType);
         }
     }
-
     public int hashCode() {
         return Objects.hash(firstType, secondType);
     }
