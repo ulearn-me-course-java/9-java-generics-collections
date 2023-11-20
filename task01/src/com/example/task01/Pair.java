@@ -19,7 +19,7 @@ public class Pair<T1, T2> {
         return new Pair<>(o1, o2);
     }
 
-    public void ifPresent(BiConsumer biConsumer) {
+    public void ifPresent(BiConsumer<? super T1, ? super T2> biConsumer) {
         if (o1 == null || o2 == null) return;
         biConsumer.accept(o1, o2);
     }
