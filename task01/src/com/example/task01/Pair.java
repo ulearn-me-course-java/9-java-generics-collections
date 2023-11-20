@@ -2,6 +2,7 @@ package com.example.task01;
 
 import java.lang.reflect.Type;
 import java.net.Proxy;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
@@ -24,10 +25,18 @@ public class Pair<T1, T2> {
     }
 
     public T1 getFirst() {
+        if (o1 == null) {
+            throw new NoSuchElementException();
+        }
+
         return o1;
     }
 
     public T2 getSecond() {
+        if (o2 == null) {
+            throw new NoSuchElementException();
+        }
+
         return o2;
     }
 
@@ -39,5 +48,4 @@ public class Pair<T1, T2> {
     public int hashCode() {
         return Objects.hash(o1, o2);
     }
-    // TODO напишите реализацию
 }
