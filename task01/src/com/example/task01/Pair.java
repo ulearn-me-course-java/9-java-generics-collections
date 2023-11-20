@@ -23,7 +23,7 @@ public class Pair <T, S> {
         return second;
     }
 
-    public void ifPresent(BiConsumer consumer){
+    public void ifPresent(BiConsumer <? super T, ? super S> consumer){
         if (first != null && second != null)
             consumer.accept((T) first,(S)second);
     }
@@ -36,7 +36,7 @@ public class Pair <T, S> {
             return false;
         Pair<?, ?> pair = (Pair<?, ?>) object;
 
-        return pair.first.equals(first) && pair.second.equals(second);
+        return this.first.equals(pair.first) && this.second.equals(pair.second);
     }
 
     @Override
