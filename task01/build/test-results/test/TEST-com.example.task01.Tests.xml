@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.task01.Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-11-19T09:37:18" hostname="User-PC" time="0.044">
+  <properties/>
+  <testcase name="testIfPresent" classname="com.example.task01.Tests" time="0.038"/>
+  <testcase name="testEmpty" classname="com.example.task01.Tests" time="0.004"/>
+  <testcase name="testHalfEmpty" classname="com.example.task01.Tests" time="0.0"/>
+  <testcase name="testEquals" classname="com.example.task01.Tests" time="0.001"/>
+  <testcase name="testNonEmpty" classname="com.example.task01.Tests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
