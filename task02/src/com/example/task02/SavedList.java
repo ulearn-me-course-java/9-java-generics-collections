@@ -18,7 +18,10 @@ public class SavedList<E extends Serializable> extends AbstractList<E> {
         } else {
             try (ObjectInputStream objectInputStream = new ObjectInputStream(Files.newInputStream(file.toPath()))) {
                 list = (ArrayList<E>) objectInputStream.readObject();
-            } catch (Exception ignored) {
+            } catch (java.io.IOException exception) {
+                list = new ArrayList<E>();
+            } catch (java.lang.ClassNotFoundException exception) {
+                exception.printStackTrace();
             }
         }
         this.file = file;
@@ -57,7 +60,8 @@ public class SavedList<E extends Serializable> extends AbstractList<E> {
     private void saveToFile() {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(Files.newOutputStream(file.toPath()))) {
             outputStream.writeObject(list);
-        } catch (Exception ignored) {
+        } catch (java.io.IOException exception) {
+            exception.printStackTrace();
         }
     }
 }

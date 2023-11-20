@@ -26,12 +26,14 @@ public class Task03Main {
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charset))) {
             bufferedReader.lines() // получить все строки
                     .map(String::toLowerCase) // в нижний регистр
+                    .sorted()
                     .filter(word -> word.length() >= 3 && word.matches("[а-яё]*")) // фильтр: длина слова >= + русские буквы
                     .forEach(word -> {
                         char[] chars = word.toCharArray();
                         Arrays.sort(chars);
                         String sortedWord = new String(chars); // получить word с буквами в алфавитном порядке
-                        anagrams.computeIfAbsent(sortedWord, k -> new TreeSet<>()).add(word);
+                        anagrams.putIfAbsent(sortedWord, new TreeSet<>());
+                        anagrams.get(sortedWord).add(word);
                     });
         } catch (IOException ignored) {
         }

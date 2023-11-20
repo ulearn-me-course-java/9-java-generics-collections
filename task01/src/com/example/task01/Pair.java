@@ -8,8 +8,8 @@ public class Pair<T, U> {
     private final T firstValue;
     private final U secondValue;
 
-    public static <V, N> Pair<V, N> of(V firstValue, N secondValue) {
-        return new Pair<>(firstValue, secondValue);
+    public static <T, U> Pair<T, U> of(T firstValue, U secondValue) {
+        return new Pair<T, U>(firstValue, secondValue);
     }
 
     private Pair(T firstValue, U secondValue) {
