@@ -17,7 +17,7 @@ public class Pair <T, K> {
         return new Pair<T, K>(firstValue, secondValue);
     }
 
-    public void ifPresent(BiConsumer consumer){
+    public void ifPresent(BiConsumer<? super T, ? super K> consumer){
         if(firstValue != null && secondValue != null){
             consumer.accept(firstValue, secondValue);
         }

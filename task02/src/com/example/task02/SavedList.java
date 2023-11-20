@@ -23,7 +23,9 @@ public class SavedList<E extends Serializable> extends AbstractList<E> {
         try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))) {
             elements = (List<E>) objectInputStream.readObject();
         }
-        catch (Exception e){}
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void writeList(){
