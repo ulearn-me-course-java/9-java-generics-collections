@@ -1,5 +1,5 @@
 variables:
-  GRADLE_BUILD_IMAGE: "gradle:4.8.1-jdk8"
+  GRADLE_BUILD_IMAGE: "gradle:7.3-jdk17"
 
 stages:
   - test
