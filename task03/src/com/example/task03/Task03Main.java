@@ -1,11 +1,10 @@
 package com.example.task03;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task03Main {
 
@@ -19,6 +18,27 @@ public class Task03Main {
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        return null;
+        Map<String, Set<String>> treeMap = new TreeMap<>();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charset))){
+            List<String> inputs = bufferedReader.lines()
+                    .map(String::toLowerCase)
+                    .filter(x -> x.matches("[а-я]+"))
+                    .filter(x -> x.length() >= 3)
+                    .collect(Collectors.toList());
+            for (String input : inputs) {
+                char[] chars = input.toCharArray();
+                Arrays.sort(chars);
+                String key = new String(chars);
+                treeMap.computeIfAbsent(key, set -> new TreeSet<>()).add(input);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return treeMap.values()
+                .stream()
+                .filter(set -> set.size() >= 2)
+                .collect(Collectors.toList());
     }
 }
