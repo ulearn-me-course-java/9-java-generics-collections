@@ -1,6 +1,7 @@
 package com.example.task01;
 
 
+import java.util.Objects;
 import java.util.function.BiConsumer;
 
 public class Pair <K,V> {
@@ -23,7 +24,7 @@ public class Pair <K,V> {
     }
     public int hashCode()
     {
-        return (key.toString() + value.toString()).hashCode();
+        return Objects.hash(key,value);
     }
 
     public static <K,V> Pair<K,V> of(K Key, V Value)
