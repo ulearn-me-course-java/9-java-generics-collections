@@ -24,12 +24,12 @@ public class Task03Main {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, charset))) {
             reader.lines()
                     .map(String::toLowerCase)
-                    .filter(x -> x.length() >= 3 && x.matches("[а-яё]*"))
+                    .filter(x -> x.length() >= 3 && x.matches("[а-яё]+"))
                     .forEach(x -> {
                         char[] chars = x.toCharArray();
                         Arrays.sort(chars);
-                        String word = new String(chars);
-                        anagrams.computeIfAbsent(word, y -> new TreeSet<>()).add(x);
+                        String key = new String(chars);
+                        anagrams.computeIfAbsent(key, y -> new TreeSet<>()).add(x);
                     });
 
         } catch (IOException e) {

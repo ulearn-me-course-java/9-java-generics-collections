@@ -5,9 +5,9 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavedList<E extends Serializable> extends AbstractList<E> {
+public class SavedList<T> extends AbstractList<T> {
 
-    private final List<E> list;
+    private final List<T> list;
     private final File file;
 
     public SavedList(File file) throws IOException {
@@ -20,12 +20,12 @@ public class SavedList<E extends Serializable> extends AbstractList<E> {
     }
 
     @Override
-    public E get(int index) {
+    public T get(int index) {
         return list.get(index);
     }
 
     @Override
-    public E set(int index, E element) {
+    public T set(int index, T element) {
         list.set(index, element);
         serialize();
         return element;
@@ -37,23 +37,23 @@ public class SavedList<E extends Serializable> extends AbstractList<E> {
     }
 
     @Override
-    public void add(int index, E element) {
+    public void add(int index, T element) {
         list.add(index, element);
         serialize();
     }
 
     @Override
-    public E remove(int index) {
-        E removed = list.get(index);
+    public T remove(int index) {
+        T removed = list.get(index);
         list.remove(index);
         serialize();
         return removed;
     }
 
-    private static <E> List<E> deserialize(InputStream inputStream) throws IOException {
-        List<E> newlist = new ArrayList<>();
+    private static <T> List<T> deserialize(InputStream inputStream) throws IOException {
+        List<T> newlist = new ArrayList<>();
         try (ObjectInputStream ois = new ObjectInputStream(inputStream)) {
-            newlist = (List<E>) ois.readObject();
+            newlist = (List<T>) ois.readObject();
         } catch (Exception e) {
             e.printStackTrace();
         }
