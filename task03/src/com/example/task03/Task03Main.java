@@ -1,24 +1,59 @@
 package com.example.task03;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task03Main {
 
     public static void main(String[] args) throws IOException {
-
-        List<Set<String>> anagrams = findAnagrams(new FileInputStream("task03/resources/singular.txt"), Charset.forName("windows-1251"));
         for (Set<String> anagram : anagrams) {
             System.out.println(anagram);
         }
-
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        return null;
+        Map<String, Set<String>> map = new TreeMap<>();
+        List<Set<String>> result = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, charset))){
+            List<String> words = reader.lines().collect(Collectors.toList());
+
+            for (String word : words ){
+                if (word.length() >= 3){
+                    String lowerWord = word.toLowerCase();
+                    if(containsOnlyRussianLetters(lowerWord)) {
+                        String sortedWord = sortWord(lowerWord);
+                        if (map.containsKey(sortedWord)){
+                            map.get(sortedWord).add(lowerWord);
+                        }else{
+                            map.put(sortedWord, new TreeSet<>());
+                            map.get(sortedWord).add(lowerWord);
+                        }
+                    }
+                }
+            }
+
+            for (String key : map.keySet()){
+                if(map.get(key).size() >= 2){
+                    result.add(map.get(key));
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static String sortWord(String word) {
+        char[] chars = word.toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
+    }
+
+    public static boolean containsOnlyRussianLetters(String word) {
+        return word.matches("[а-яё]+");
     }
 }
