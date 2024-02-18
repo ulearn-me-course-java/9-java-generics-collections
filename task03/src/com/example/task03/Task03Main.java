@@ -1,11 +1,9 @@
 package com.example.task03;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task03Main {
 
@@ -15,10 +13,44 @@ public class Task03Main {
         for (Set<String> anagram : anagrams) {
             System.out.println(anagram);
         }
-
     }
 
     public static List<Set<String>> findAnagrams(InputStream inputStream, Charset charset) {
-        return null;
+        Set<String> words = getWords(inputStream, charset);
+        Map<String, Set<String>> map = createMap(words);
+        return map.values().stream().
+                filter(s -> s.size() >= 2).
+                collect(Collectors.toList());
+    }
+    private static Map<String, Set<String>> createMap(Set<String> words) {
+        Map<String, Set<String>> map = new LinkedHashMap<>();
+        for (String word : words) {
+            char[] arr = word.toCharArray();
+            Arrays.sort(arr);
+            String key = Arrays.toString(arr);
+            if (map.containsKey(key)) {
+                map.get(key).add(word);
+            } else {
+                map.put(key, new TreeSet<>());
+                map.get(key).add(word);
+            }
+        }
+        return map;
+    }
+    private static Set<String> getWords(InputStream inputStream, Charset charset) {
+        SortedSet<String> list = new TreeSet<>();
+        try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charset))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                line = line.toLowerCase();
+                if(line.length() >= 3 && line.matches("[а-яё]+")) {
+                    list.add(line);
+                }
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }
