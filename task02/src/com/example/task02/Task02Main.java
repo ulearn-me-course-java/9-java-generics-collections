@@ -16,6 +16,15 @@ public class Task02Main {
         SavedList<String> list2 = new SavedList<>(file);
         System.out.println("list2: " + list2);
 
+        Tests tests = new Tests();
+        try {
+            tests.test1();
+            tests.test2();
+            tests.test3();
+            tests.test4();
+        }
+        catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
-
 }
